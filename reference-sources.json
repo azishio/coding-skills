@@ -15,7 +15,7 @@
     {
       "path": "microsoft-rust-guidelines",
       "repository": "https://github.com/microsoft/rust-guidelines.git",
-      "revision": "bbf7b03f3a51548f187888fb8c516e8118ebb1c2",
+      "revision": "c1d2efc4692630d5d2143b4ca446790005a714c9",
       "license": "MIT",
       "includes": [
         "src",
