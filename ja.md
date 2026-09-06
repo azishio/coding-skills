@@ -10,7 +10,9 @@ Rust Skillsは、Rust向けのCodex skillを保守・公開するrepositoryで�
 
 Rustコードの実装、修正、レビュー、リファクタリングで、公開APIと内部実装を同じ品質基準で扱うskillです。Rust API Guidelines、Microsoft Pragmatic Rust Guidelines、Rust Design Patternsから変更に該当する規則を参照し、命名、関数とmethodの配置、型・所有権・error設計、可読性、予測可能性を確認します。strict Clippy runnerはproject固有のClippyを置き換えず、追加のreview基準として実行します。
 
-Dependency selection guideは依存の固定推奨listではなく、標準library、既存依存、小さな手書き実装と比較するための候補を示します。`garde`はrequest、form、config等の複数field・nested・条件付きvalidationの候補です。候補crateを採用するときは、実装前にregistryの最新releaseと選定versionの公式documentationを確認し、API、feature、MSRV、互換性をprojectの要件と照合します。
+参照routeは設計判断ごとに最初に読むguideを定め、未解決の問いがある場合だけ補足資料を開きます。vendor済みreferenceは完全な状態を保ち、必要な部分を選んで読みます。
+
+Dependency selection guideは依存数よりも総保守コストを重視します。標準libraryと既存依存を確認し、汎用的な基盤を自作する前に、要件を満たす保守されたcrateを調べます。候補はserialization、CLI解析、validation、builder、async utilityなど繰り返し必要になる機能に絞り、許可listとしては扱いません。小さなdomain固有のlogicは必要に応じてproject内に置きます。crateを採用するときは、registryの最新releaseと選定versionの公式documentationを確認し、API、feature、MSRV、互換性をprojectの要件と照合します。
 
 ## セットアップ
 

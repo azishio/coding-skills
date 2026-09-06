@@ -18,13 +18,18 @@ placement, types, ownership, error design, readability, and predictability.
 The strict Clippy runner complements rather than replaces a project's own
 Clippy command.
 
-The dependency selection guide is not a fixed list of recommended
-dependencies. It offers examples to compare with the standard library, existing
-dependencies, and small hand-written implementations. For example, `garde` may
-suit multi-field, nested, or conditional validation for requests, forms, and
-configuration. Before adopting any candidate crate, check the latest registry
-release and the official documentation for the selected version, then match its
-API, features, MSRV, and compatibility with the project's requirements.
+Reference routing assigns a primary guide to each design decision and opens
+secondary material only for unresolved questions. Vendored references remain
+complete and are read selectively.
+
+The dependency selection guide prioritizes total maintenance cost over dependency
+count. Check the standard library and existing dependencies, then investigate
+suitable maintained crates before rebuilding general-purpose infrastructure.
+Its shortlist covers recurring needs such as serialization, CLI parsing,
+validation, builders, and async utilities; it is not an allowlist. Keep small
+domain-specific logic local when appropriate. Before adopting a crate, verify
+its current release and selected-version documentation against the project's
+API, features, MSRV, and compatibility requirements.
 
 ## Setup
 

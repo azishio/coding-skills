@@ -1,30 +1,25 @@
 # Dependency selection
 
-Read this guide only when evaluating, adding, or updating a crate. Treat the candidates below as comparison prompts, not fixed recommendations.
+Read this guide before implementing general-purpose utilities or repetitive infrastructure, and when evaluating, adding, or updating a crate. Prefer a suitable maintained implementation over rebuilding its functionality inside the project. Optimize total maintenance cost, not dependency count alone.
 
 1. Define the required functionality, API shape, performance, MSRV, features, targets, `no_std` support, and license constraints.
-2. Compare the standard library, existing dependencies, and a small local implementation. Add a dependency only when it reduces current repetition or error-prone code enough to justify its cost.
+2. Check the standard library and existing dependencies first. If they do not cover a general-purpose need, investigate suitable crates before writing a local substitute. Compare integration, transitive dependencies, build cost, and upgrade obligations with the implementation, edge cases, tests, and maintenance the project would otherwise own. A small amount of domain-specific logic or glue can stay local; a smaller initial diff alone does not justify recreating a parser, validation framework, or runtime utility.
 3. For a new or updated dependency, verify the registry's current release and the official documentation for the selected version. Check its API, default and optional features, MSRV, license, compatibility notes, and security advisories. Inspect the source repository, release history, or open issues when maintenance or operational risk makes them material.
 4. Check whether dependency types, attributes, generated APIs, or wire formats become part of a public contract.
 5. Validate the feature, target, and `no_std` configurations the project actually claims to support on its pinned toolchain. Do not invent an all-features, no-default-features, target, or `no_std` requirement absent from project policy.
 
-| Typical need | Candidate | Avoid when |
+If choosing a local implementation over an available crate for a general-purpose facility, state the concrete mismatch or maintenance advantage. Do not replace a suitable existing dependency just to match this shortlist, and search beyond it when the required capability is absent. Pattern examples illustrate design mechanics; they are not instructions to hand-write reusable infrastructure.
+
+These examples focus on recurring infrastructure and generated plumbing. Verify suitability at adoption time; they are neither an allowlist nor dependencies to add by default.
+
+| Need that would otherwise require project-owned infrastructure | Candidate | Boundary |
 | --- | --- | --- |
-| Classifiable library or domain errors | `thiserror` | Aggregating arbitrary top-level application errors |
-| Contextual aggregation of top-level binary or application errors | `anyhow` | A library's public error type |
-| Serialization to or from an external format | `serde` | Blanket derives on internal types |
-| Multi-field, nested, or conditional validation for requests, forms, or configuration | `garde` | One-off simple validation, or domain invariants that constructors or types must always guarantee |
-| Enum parsing, display, enumeration, or variant names | `strum` | A small one-off `match` |
-| Natural trait delegation for a newtype or wrapper | `derive_more` | Meaningless `Deref`, operators, or conversions |
-| Staged construction with many required and optional values | `bon` | Few fields or a single construction site |
-| Independently combinable flag sets | `bitflags` | Exclusive states or state machines |
-| Iterator adapters, multi-iterator operations, or grouping beyond `std` | `itertools` | Standard iterator methods or one clear local loop suffice |
-| Insertion-ordered maps or sets with key and index lookup | `indexmap` | Order is irrelevant, sorted-key order is required, or `HashMap` / `BTreeMap` fits |
-| Measurable zero-copy archive access | `rkyv` | General wire formats or persistence without a compatibility plan |
-| Measured data parallelism for independent CPU-bound work | `rayon` | Small or I/O-bound workloads, order-dependent side effects, constrained targets, or no benchmarked gain |
-| Measured fast hashing for trusted, non-adversarial keys | `rustc-hash` | Untrusted input, HashDoS resistance, stable iteration order, or no measured hash bottleneck |
-| Asynchronous I/O runtime | `tokio` | Creating a runtime inside a library or merely replacing synchronous work |
-| Cancellation, task tracking, codecs, or I/O adapters | `tokio-util` | Work sufficiently handled by `tokio` alone |
-| Using Tokio types as `Stream`s | `tokio-stream` | A `Future` or one asynchronous result |
-| Async traits requiring `dyn` dispatch | `async-trait` | Cases covered by static dispatch or standard trait `async fn` |
-| Structured diagnostics in asynchronous work | `tracing` | Global subscriber setup in a library or recording sensitive values |
+| Typed error implementations | [thiserror](https://docs.rs/thiserror/) | Preserve domain distinctions and the public error contract |
+| Application error context and propagation | [anyhow](https://docs.rs/anyhow/) | Use at application boundaries; retain typed errors in library APIs |
+| Serialization | [serde](https://serde.rs/) and an appropriate format crate | Design wire compatibility; derive only where serialization is needed |
+| CLI parsing, help, and argument validation | [clap](https://docs.rs/clap/) | Compare against the actual CLI size and target/build constraints |
+| Nested, multi-field, or conditional input validation | [garde](https://docs.rs/garde/) | Keep domain invariants enforced by constructors or types |
+| Repetitive builder implementation after a builder is justified | [bon](https://docs.rs/bon/) | Simple construction may need no builder; assess generated API compatibility |
+| Combinable flags and their operations | [bitflags](https://docs.rs/bitflags/) | Exclusive states belong in an enum |
+| Async I/O, cancellation, and task coordination | [tokio](https://docs.rs/tokio/); [tokio-util](https://docs.rs/tokio-util/) for missing utilities | Reuse the project's runtime and add only the needed capabilities |
+| Structured diagnostic events and spans | [tracing](https://docs.rs/tracing/) | Leave subscriber setup to the application and keep sensitive values out |

@@ -7,13 +7,13 @@ description: Implement, fix, review, and refactor readable, idiomatic, maintaina
 
 Prioritize the user's request, project instructions, existing conventions, compatibility, and supported toolchain. Hold public and internal code to the same standards of readability, predictability, type safety, and maintainability, but apply rules about downstream compatibility, publishing, or public documentation only to public surfaces.
 
-Keep work scoped to the task. Add a helper, trait, type, module, or dependency only when it provides a concrete benefit to responsibility, ownership, type safety, or current duplication.
+Keep work scoped to the task. Add a helper, trait, type, or module only when it provides a concrete benefit to responsibility, ownership, type safety, or current duplication. Before building general-purpose utilities or repetitive infrastructure, follow Dependency selection; minimize total maintenance cost, not dependency count alone.
 
 ## Workflow
 
 1. Inspect the relevant `Cargo.toml`, workspace structure, edition, `rust-version`, features, `no_std` support, dependencies, nearby code, and tests. Do not inventory unrelated parts of the project.
 2. Identify the concrete decisions introduced by the task: affected APIs and types, ownership and error boundaries, construction paths, function or method placement, compatibility constraints, and validation needs.
-3. Use Reference routing below. Start with the smallest matching guide and open only the upstream pages tied to a concrete decision. Expand only when the code or requirements expose another decision. Record applicable guidance and material deviations; do not enumerate irrelevant rules.
+3. Use Reference routing below to choose one primary guide per concrete decision. Open the relevant upstream section, and stop when the decision is resolved. Follow a secondary reference only for an unresolved question or a distinct decision. Record applicable guidance and material deviations; do not enumerate irrelevant rules.
 4. Implement or recommend the smallest design that preserves behavior and compatibility while keeping responsibility, data flow, and ownership locally understandable. State the impact and migration path for any required breaking change.
 5. Validate according to task type:
    - Pass `--message-format=short` to `cargo bench`, `build`, `check`, `doc`, `fix`, `install`, `run`, `rustc`, `rustdoc`, and `test`.
@@ -32,16 +32,18 @@ Keep work scoped to the task. Add a helper, trait, type, module, or dependency o
 
 ## Reference routing
 
-Read only guides that match the current decision:
+Choose by the question being answered, not by every topic mentioned in the code. A production type or a named pattern does not require a tour of all three upstream sources.
 
-- **API or internal design**: For naming, standard traits, error types, functions versus methods, argument ownership, constructors, builders, type safety, panics, `Debug`, documentation, or public compatibility, read [API and internal design](references/api-and-internal-design.md).
-- **Production engineering**: For library or application architecture, workspace layout, features, macros, FFI, unsafe code, performance, logging, documentation, MSRV, or structure specifically intended for AI-assisted maintenance, read [Pragmatic engineering](references/pragmatic-engineering.md).
-- **Idioms and patterns**: For borrow-checker clones, borrowed arguments, `Deref`, constructors, RAII, newtypes, builders, FFI patterns, or structural and behavioral patterns, read [Idioms and patterns](references/idioms-and-patterns.md).
-- **Control and data flow**: When choosing iterators or combinators versus loops, mutation, or `match`, read [Data flow](references/data-flow.md).
-- **Dependencies**: Before evaluating, adding, or updating a crate, read [Dependency selection](references/dependencies.md).
-- **Clippy**: Before running the strict runner or resolving, suppressing, or assessing a lint, read [Clippy policy](references/clippy-policy.md).
+| Decision | Primary guide |
+| --- | --- |
+| Running strict Clippy or interpreting, fixing, or suppressing a lint | [Clippy policy](references/clippy-policy.md) |
+| Reusing a crate versus writing a utility, framework, or repetitive plumbing; adding or updating a dependency | [Dependency selection](references/dependencies.md) |
+| Choosing iterators or combinators versus loops, mutation, or `match` | [Data flow](references/data-flow.md) |
+| Defining a type or callable contract: names, traits, errors, receivers, arguments, constructors, builders, newtypes, `Deref`, panic contracts, public macros, docs, or compatibility | [API and internal design](references/api-and-internal-design.md) |
+| Choosing architecture or operational policy: workspace, features, MSRV, service lifecycle, macro implementation, FFI, unsafe boundaries, panic recovery, performance, logging, or documentation organization | [Pragmatic engineering](references/pragmatic-engineering.md) |
+| Solving an implementation problem: borrow-checker workarounds, resource cleanup, dispatch, composition, or a pattern's mechanics after its contract is settled | [Idioms and patterns](references/idioms-and-patterns.md) |
 
-If no route clearly fits, narrow the destination with the [API summary](references/rust-api-guidelines/src/SUMMARY.md), [Pragmatic summary](references/microsoft-rust-guidelines/src/SUMMARY.md), or [Patterns summary](references/rust-design-patterns/src/SUMMARY.md). Search headings or checklist identifiers before opening a long file; never load all vendored references or an entire checklist by default.
+For example, decide whether a builder is warranted through API and internal design; consult a builder implementation example only if ownership or construction mechanics remain unclear. If no row fits, search the closest guide's summary or checklist for the decision terms. Never load all vendored references or an entire checklist by default.
 
 ## Completion
 
