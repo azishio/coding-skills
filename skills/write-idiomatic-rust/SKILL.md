@@ -37,7 +37,7 @@ Choose by the question being answered, not by every topic mentioned in the code.
 | Decision | Primary guide |
 | --- | --- |
 | Running strict Clippy or interpreting, fixing, or suppressing a lint | [Clippy policy](references/clippy-policy.md) |
-| Reusing a crate versus writing a utility, framework, or repetitive plumbing; adding or updating a dependency | [Dependency selection](references/dependencies.md) |
+| Reusing a crate versus writing a utility, framework, or repetitive plumbing; choosing macro or test tooling; adding or updating a dependency | [Dependency selection](references/dependencies.md) — read the matching capability section |
 | Choosing iterators or combinators versus loops, mutation, or `match` | [Data flow](references/data-flow.md) |
 | Defining a type or callable contract: names, traits, errors, receivers, arguments, constructors, builders, newtypes, `Deref`, panic contracts, public macros, docs, or compatibility | [API and internal design](references/api-and-internal-design.md) |
 | Choosing architecture or operational policy: workspace, features, MSRV, service lifecycle, macro implementation, FFI, unsafe boundaries, panic recovery, performance, logging, or documentation organization | [Pragmatic engineering](references/pragmatic-engineering.md) |

@@ -12,7 +12,7 @@ Rustコードの実装、修正、レビュー、リファクタリングで、�
 
 参照routeは設計判断ごとに最初に読むguideを定め、未解決の問いがある場合だけ補足資料を開きます。vendor済みreferenceは完全な状態を保ち、必要な部分を選んで読みます。
 
-Dependency selection guideは依存数よりも総保守コストを重視します。標準libraryと既存依存を確認し、汎用的な基盤を自作する前に、要件を満たす保守されたcrateを調べます。候補はserialization、CLI解析、validation、builder、async utilityなど繰り返し必要になる機能に絞り、許可listとしては扱いません。小さなdomain固有のlogicは必要に応じてproject内に置きます。crateを採用するときは、registryの最新releaseと選定versionの公式documentationを確認し、API、feature、MSRV、互換性をprojectの要件と照合します。
+Dependency selection guideは依存数よりも総保守コストを重視します。標準libraryと既存依存を確認し、汎用的な基盤を自作する前に、要件を満たす保守されたcrateを調べます。第一候補と採用条件は、定型処理、data・設定、application・async、procedural macro、testの用途別にまとめています。iterator・enumのutility、traitのderive、Serde adapter、project自身のmacroやtestを支えるtoolも含み、許可listとしては扱いません。小さなdomain固有のlogicは必要に応じてproject内に置きます。crateを採用するときは互換性のあるversionを選び、そのdocumentationをAPI、feature、MSRV、関連依存の要件と照合します。
 
 ### `anti-overengineering`
 

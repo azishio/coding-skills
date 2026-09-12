@@ -27,11 +27,13 @@ complete and are read selectively.
 The dependency selection guide prioritizes total maintenance cost over dependency
 count. Check the standard library and existing dependencies, then investigate
 suitable maintained crates before rebuilding general-purpose infrastructure.
-Its shortlist covers recurring needs such as serialization, CLI parsing,
-validation, builders, and async utilities; it is not an allowlist. Keep small
-domain-specific logic local when appropriate. Before adopting a crate, verify
-its current release and selected-version documentation against the project's
-API, features, MSRV, and compatibility requirements.
+Its candidate guide groups first choices and adoption conditions by common code,
+data and configuration, applications and async, procedural macros, and tests.
+It includes iterator and enum utilities, trait derives, Serde adapters, and
+tools for project-owned macros and tests; it is not an allowlist. Keep small
+domain-specific logic local when appropriate. Before adopting a crate, select a
+compatible version and verify its documentation against the project's API,
+features, MSRV, and related dependencies.
 
 ### `anti-overengineering`
 
