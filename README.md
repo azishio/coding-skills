@@ -1,12 +1,14 @@
-# Rust Skills
+# Coding Skills
 
 [English](README.md) | [日本語](ja.md)
 
-Rust Skills maintains and publishes Codex skills for Rust. Installable skills live
-in [`skills/`](skills/); this README and the repository's GitHub Actions contain
-maintainer documentation and automation procedures.
+Coding Skills maintains and publishes agent skills and a plugin for Claude Code
+and Codex. Installable skills live in [`skills/`](skills/), and the plugin
+manifests and lifecycle hooks turn the repository root into an installable
+plugin. This README and the repository's GitHub Actions contain maintainer
+documentation and automation procedures.
 
-## Included skill
+## Included skills
 
 ### `write-idiomatic-rust`
 
@@ -31,21 +33,75 @@ domain-specific logic local when appropriate. Before adopting a crate, verify
 its current release and selected-version documentation against the project's
 API, features, MSRV, and compatibility requirements.
 
+### `anti-overengineering`
+
+Use this skill family to keep every change as small as it can correctly be.
+The core skill is a simplified fork of the `ultra` intensity of
+[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail), reduced
+to a single always-on ruleset: before writing code, stop at the first rung that
+holds (does it need to exist, does the codebase already have it, does the
+standard library or the platform cover it, does an installed dependency solve
+it, can it be one line), then write the minimum that works. It never simplifies
+away validation at trust boundaries, error handling that prevents data loss,
+security, accessibility, or understanding the problem before editing.
+
+When installed as a plugin, [`hooks/hooks.json`](hooks/hooks.json) injects the
+core skill at `SessionStart` and into every subagent at `SubagentStart`. There
+are no intensity levels, toggles, or state files. Deliberate shortcuts are
+marked with an `anti-overengineering:` comment naming the ceiling and the
+upgrade path.
+
+Companion skills: `anti-overengineering-review` (over-engineering review of a
+diff), `anti-overengineering-audit` (whole-repository audit),
+`anti-overengineering-debt` (ledger of `anti-overengineering:` comments),
+`anti-overengineering-gain` (upstream benchmark scoreboard), and
+`anti-overengineering-help` (quick reference).
+
 ## Setup
 
-```bash
-npx skills add azishio/rust-skills --skill write-idiomatic-rust
+### Claude Code plugin
+
+```
+/plugin marketplace add azishio/coding-skills
+```
+```
+/plugin install coding-skills@coding-skills
 ```
 
-The `skills` CLI discovers the skill under `skills/` and installs all of its
+Send the two commands as separate prompts, then run `/reload-plugins`. Skills
+are namespaced as `/coding-skills:<skill>`. The hooks run `node`, so it must be
+on the PATH of a non-interactive shell; without it the skills still work and
+the always-on rules stay silent.
+
+### Codex plugin
+
+```bash
+codex plugin marketplace add azishio/coding-skills
+codex plugin add coding-skills@coding-skills
+```
+
+Run `codex`, open `/hooks`, review and trust the two lifecycle hooks, and start
+a new thread. Skills are invoked as `$<skill>`.
+
+### Skills only
+
+```bash
+npx skills add azishio/coding-skills --skill write-idiomatic-rust
+npx skills add azishio/coding-skills --skill anti-overengineering
+```
+
+The `skills` CLI discovers each skill under `skills/` and installs all of its
 tracked support files, including the required reference material. Use `--global`
 to install it for every project, `--agent <agent>` to target a specific agent,
-and `--copy` where symlinks are unsuitable.
+and `--copy` where symlinks are unsuitable. This path installs skill files
+only; the always-on hooks require the plugin install above.
 
 ## Maintainer setup
 
 Clone the repository normally. The tracked reference files are ready for local
-validation and are included in every `skills add` installation.
+validation and are included in every `skills add` installation. Run
+`node --test hooks/` to check the hook, the plugin manifests, and the skill
+names.
 
 ## Updating references
 
@@ -59,7 +115,11 @@ them automatically. Use workflow dispatch for an intentional manual refresh.
 
 - `skills/`: distributable agent skills, each containing only execution
   instructions, agent reference material, and helper scripts.
+- `hooks/`: the stateless rule-injection hook, its configuration, and its test.
+- `.claude-plugin/`, `.codex-plugin/`, `.agents/plugins/`: plugin and
+  marketplace manifests for Claude Code and Codex.
 - `.github/workflows/update-references.yml`: weekly reference update automation.
+- `.github/workflows/test.yml`: hook and manifest tests.
 - `README.md` and `ja.md`: maintainer and user documentation in English and
   Japanese.
 
@@ -71,15 +131,20 @@ at the recipient's option. Unless explicitly stated otherwise, contributions are
 accepted under the same terms.
 
 The vendored references under `skills/write-idiomatic-rust/references/` are
-independent upstream projects and are not covered by these licenses. See
-[Third-party notices](THIRD_PARTY_NOTICES.md) and the license texts retained
-beside each reference before redistributing them.
+independent upstream projects and are not covered by these licenses. The
+`anti-overengineering` skills and `hooks/` are a modified derivative of
+ponytail (MIT); its notice is retained at
+[`skills/anti-overengineering/LICENSE-ponytail`](skills/anti-overengineering/LICENSE-ponytail).
+See [Third-party notices](THIRD_PARTY_NOTICES.md) and the license texts
+retained beside each reference before redistributing them.
 
 ## Upstream references
 
 - `rust-lang/api-guidelines` (`master`): Rust API Guidelines; Apache-2.0 OR MIT.
 - `microsoft/rust-guidelines` (`main`): Pragmatic Rust Guidelines; MIT.
 - `rust-unofficial/patterns` (`main`): Rust Design Patterns; MPL-2.0.
+- `DietrichGebert/ponytail` (v4.9.0): origin of the `anti-overengineering`
+  skills and hooks; MIT. Forked and modified rather than vendored.
 
 The exact vendored revision, source, license, and included paths are recorded
 in [`reference-sources.json`](reference-sources.json).

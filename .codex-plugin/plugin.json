@@ -1,0 +1,29 @@
+{
+  "name": "coding-skills",
+  "version": "0.1.0",
+  "description": "Coding skills for Claude Code and Codex: idiomatic Rust guidance and always-on anti-overengineering rules.",
+  "author": {
+    "name": "azishio",
+    "url": "https://github.com/azishio"
+  },
+  "homepage": "https://github.com/azishio/coding-skills",
+  "repository": "https://github.com/azishio/coding-skills",
+  "license": "MIT OR Apache-2.0",
+  "keywords": ["rust", "yagni", "minimalism", "code-review"],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Coding Skills",
+    "shortDescription": "Idiomatic Rust guidance and anti-overengineering rules",
+    "longDescription": "Write idiomatic Rust with routed design guidelines, and keep every change minimal: YAGNI, the standard library, native platform features, and the smallest correct implementation.",
+    "developerName": "azishio",
+    "category": "Productivity",
+    "capabilities": ["Instructions", "Lifecycle hooks"],
+    "websiteURL": "https://github.com/azishio/coding-skills",
+    "defaultPrompt": [
+      "Review this diff for over-engineering.",
+      "Find the smallest correct implementation.",
+      "Use $write-idiomatic-rust to review this Rust code."
+    ]
+  }
+}

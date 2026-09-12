@@ -1,0 +1,12 @@
+{
+  "name": "coding-skills",
+  "version": "0.1.0",
+  "description": "Coding skills for Claude Code and Codex: idiomatic Rust guidance and always-on anti-overengineering rules.",
+  "author": {
+    "name": "azishio",
+    "url": "https://github.com/azishio"
+  },
+  "homepage": "https://github.com/azishio/coding-skills",
+  "repository": "https://github.com/azishio/coding-skills",
+  "license": "MIT OR Apache-2.0"
+}
