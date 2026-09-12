@@ -20,7 +20,7 @@ Dependency selection guideは依存数よりも総保守コストを重視しま
 
 pluginとしてinstallすると、[`hooks/hooks.json`](hooks/hooks.json)が`SessionStart`で中核skillを注入し、`SubagentStart`ですべてのsubagentにも注入します。強度level、切り替え、状態fileはありません。意図的な簡略化には、上限とupgrade pathを記した`anti-overengineering:` commentを付けます。
 
-補助skill: `anti-overengineering-review`（diffの過剰設計review）、`anti-overengineering-audit`（repository全体の監査）、`anti-overengineering-debt`（`anti-overengineering:` commentの台帳化）、`anti-overengineering-gain`（upstream benchmarkのscoreboard）、`anti-overengineering-help`（quick reference）。
+補助skill: `anti-overengineering-review`（過剰設計のreview。既定ではcodebase全体、要求でscopeが指定されればその範囲）、`anti-overengineering-debt`（`anti-overengineering:` commentの台帳化）、`anti-overengineering-gain`（upstream benchmarkのscoreboard）、`anti-overengineering-help`（quick reference）。補助skillは文脈に注入済みのcore ruleに依存し、基準を再掲しません。
 
 ## セットアップ
 

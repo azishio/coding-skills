@@ -51,11 +51,12 @@ are no intensity levels, toggles, or state files. Deliberate shortcuts are
 marked with an `anti-overengineering:` comment naming the ceiling and the
 upgrade path.
 
-Companion skills: `anti-overengineering-review` (over-engineering review of a
-diff), `anti-overengineering-audit` (whole-repository audit),
+Companion skills: `anti-overengineering-review` (over-engineering review of
+the whole codebase by default, or of the scope named in the request),
 `anti-overengineering-debt` (ledger of `anti-overengineering:` comments),
 `anti-overengineering-gain` (upstream benchmark scoreboard), and
-`anti-overengineering-help` (quick reference).
+`anti-overengineering-help` (quick reference). They rely on the core rules
+being in context and do not restate them.
 
 ## Setup
 

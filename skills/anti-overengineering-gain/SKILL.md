@@ -40,7 +40,7 @@ Render plain text. The label carries the exact figure:
   Speed           ▸ 3–6× faster
 
   This repo:  /anti-overengineering-debt  (shortcuts you deferred)
-              /anti-overengineering-audit (what's still cuttable)
+              /anti-overengineering-review (what's still cuttable)
 ```
 
 Source: https://github.com/DietrichGebert/ponytail/blob/main/benchmarks/results/2026-06-18-agentic.md

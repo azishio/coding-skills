@@ -10,6 +10,7 @@
 - `skills/` contains only files an agent needs to execute a skill.
 - `hooks/` contains only the rule-injection script, its `hooks.json`, and its test. The hook must never block or fail a session and must not keep state.
 - `skills/anti-overengineering/SKILL.md` is the single source of the rules the hook injects. Do not duplicate its text elsewhere.
+- Each anti-overengineering criterion is stated in exactly one skill. Companion skills rely on the injected core rules instead of restating them.
 - `.claude-plugin/`, `.codex-plugin/`, and `.agents/plugins/` hold the plugin and marketplace manifests. Keep the plugin name and version identical across them.
 - `README.md`, `ja.md`, and `.github/workflows/` are for repository maintainers; do not direct an installed skill to run repository automation.
 - The vendored reference files are required runtime material and must be kept complete when packaging or installing a skill.
