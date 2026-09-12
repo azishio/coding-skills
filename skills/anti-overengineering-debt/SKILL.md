@@ -9,9 +9,10 @@ description: >
   later". One-shot report, changes nothing.
 ---
 
-Every deliberate shortcut is marked with an `anti-overengineering:` comment
-naming its ceiling and upgrade path. This collects them into one ledger so a
-deferral can't quietly become permanent.
+The injected anti-overengineering rules require every deliberate shortcut to
+carry an `anti-overengineering:` comment naming its ceiling and upgrade path.
+This collects them into one ledger so a deferral can't quietly become
+permanent.
 
 ## Scan
 
@@ -29,9 +30,8 @@ One row per marker, grouped by file:
 
 `<file>:<line>, <what was simplified>. ceiling: <the limit named>. upgrade: <the trigger to revisit>.`
 
-The convention is `anti-overengineering: <ceiling>, <upgrade path>`, so pull
-the ceiling and the trigger straight from the comment. Want an owner per row
-too? add `git blame -L<line>,<line>`.
+Pull the ceiling and the trigger straight from the comment. Want an owner per
+row too? add `git blame -L<line>,<line>`.
 
 Flag the rot risk: any `anti-overengineering:` comment that names no upgrade
 path or trigger gets a `no-trigger` tag, those are the ones that silently rot.

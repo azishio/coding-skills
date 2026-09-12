@@ -25,8 +25,7 @@ Codex: `codex plugin remove coding-skills`).
 | Skill | Claude Code | Codex | What it does |
 |-------|-------------|-------|--------------|
 | **anti-overengineering** | `/coding-skills:anti-overengineering` | `$anti-overengineering` | The rules themselves. Simplest solution that works. |
-| **anti-overengineering-review** | `/coding-skills:anti-overengineering-review` | `$anti-overengineering-review` | Over-engineering review of a diff: `L42: yagni: factory, one product. Inline.` |
-| **anti-overengineering-audit** | `/coding-skills:anti-overengineering-audit` | `$anti-overengineering-audit` | Whole-repo over-engineering audit: ranked list of what to delete. |
+| **anti-overengineering-review** | `/coding-skills:anti-overengineering-review` | `$anti-overengineering-review` | Over-engineering review, whole codebase by default or the scope you name: `src/x.rs:L42: yagni: factory, one product. Inline.` |
 | **anti-overengineering-debt** | `/coding-skills:anti-overengineering-debt` | `$anti-overengineering-debt` | Harvest `anti-overengineering:` shortcut comments into a tracked ledger. |
 | **anti-overengineering-gain** | `/coding-skills:anti-overengineering-gain` | `$anti-overengineering-gain` | Upstream benchmark scoreboard: less code, less cost, more speed. |
 | **anti-overengineering-help** | `/coding-skills:anti-overengineering-help` | `$anti-overengineering-help` | This card. |

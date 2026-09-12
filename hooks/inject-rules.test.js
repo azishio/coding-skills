@@ -85,7 +85,6 @@ test('anti-overengineering skills are named after their directories', () => {
   const dirs = fs.readdirSync(skillsDir).filter((d) => d.startsWith('anti-overengineering'));
   assert.deepEqual(dirs.sort(), [
     'anti-overengineering',
-    'anti-overengineering-audit',
     'anti-overengineering-debt',
     'anti-overengineering-gain',
     'anti-overengineering-help',
@@ -98,4 +97,17 @@ test('anti-overengineering skills are named after their directories', () => {
       assert.doesNotMatch(text, /ponytail/i, `${dir} still mentions the upstream name`);
     }
   }
+});
+
+test('each review criterion is stated in exactly one skill', () => {
+  const skillsDir = path.join(root, 'skills');
+  const texts = Object.fromEntries(
+    fs.readdirSync(skillsDir)
+      .filter((d) => d.startsWith('anti-overengineering'))
+      .map((d) => [d, fs.readFileSync(path.join(skillsDir, d, 'SKILL.md'), 'utf8')]),
+  );
+  const onlyIn = (pattern) => Object.keys(texts).filter((d) => pattern.test(texts[d]));
+  assert.deepEqual(onlyIn(/^- `delete:`/m), ['anti-overengineering-review'], 'finding tags');
+  assert.deepEqual(onlyIn(/Scope: over-engineering and complexity only/), ['anti-overengineering-review'], 'scope boundary');
+  assert.deepEqual(onlyIn(/^- Mark deliberate simplifications/m), ['anti-overengineering'], 'marker convention');
 });
