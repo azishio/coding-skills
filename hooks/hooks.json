@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/inject-rules.js\" SessionStart",
+            "timeout": 5,
+            "statusMessage": "Loading anti-overengineering rules..."
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/inject-rules.js\" SubagentStart",
+            "timeout": 5,
+            "statusMessage": "Loading anti-overengineering rules..."
+          }
+        ]
+      }
+    ]
+  }
+}

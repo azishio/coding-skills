@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "coding-skills",
+  "description": "Coding skills for Claude Code and Codex: idiomatic Rust guidance and always-on anti-overengineering rules.",
+  "owner": {
+    "name": "azishio",
+    "url": "https://github.com/azishio"
+  },
+  "plugins": [
+    {
+      "name": "coding-skills",
+      "description": "Idiomatic Rust guidance plus always-on anti-overengineering rules: YAGNI, stdlib first, one line over fifty.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
