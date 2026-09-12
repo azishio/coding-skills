@@ -28,6 +28,7 @@ for (const event of ['SessionStart', 'SubagentStart']) {
     assert.ok(output.additionalContext.startsWith('ANTI-OVERENGINEERING RULES ACTIVE'));
     assert.doesNotMatch(output.additionalContext, /^name: /m, 'frontmatter must be stripped');
     assert.match(output.additionalContext, /## The ladder/);
+    assert.match(output.additionalContext, /A mature library covers it/);
     assert.match(output.additionalContext, /anti-overengineering:/);
     assert.doesNotMatch(output.additionalContext, /ponytail/i);
   });

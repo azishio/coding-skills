@@ -41,9 +41,11 @@ The core skill is a simplified fork of the `ultra` intensity of
 to a single always-on ruleset: before writing code, stop at the first rung that
 holds (does it need to exist, does the codebase already have it, does the
 standard library or the platform cover it, does an installed dependency solve
-it, can it be one line), then write the minimum that works. It never simplifies
-away validation at trust boundaries, error handling that prevents data loss,
-security, accessibility, or understanding the problem before editing.
+it, does a mature library cover it after investigation, can it be one line),
+then write the minimum that works. It follows the project's and framework's
+conventions, runs one library per job, and never simplifies away validation
+at trust boundaries, error handling that prevents data loss, security,
+accessibility, or understanding the problem before editing.
 
 When installed as a plugin, [`hooks/hooks.json`](hooks/hooks.json) injects the
 core skill at `SessionStart` and into every subagent at `SubagentStart`. There

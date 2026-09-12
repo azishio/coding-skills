@@ -16,7 +16,7 @@ Dependency selection guideは依存数よりも総保守コストを重視しま
 
 ### `anti-overengineering`
 
-すべての変更を、正しさを保てる範囲で最小に抑えるためのskill群です。中核skillは[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)の`ultra`強度を単一の常時有効なruleに簡略化したforkです。コードを書く前に、最初に成立する段で止まります（そもそも必要か、codebaseに既にあるか、標準libraryやplatformが提供しているか、導入済み依存で解決できるか、1行で書けるか）。そのうえで動作する最小限だけを書きます。信頼境界でのvalidation、データ損失を防ぐerror処理、security、accessibility、編集前の問題理解は決して省略しません。
+すべての変更を、正しさを保てる範囲で最小に抑えるためのskill群です。中核skillは[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)の`ultra`強度を単一の常時有効なruleに簡略化したforkです。コードを書く前に、最初に成立する段で止まります（そもそも必要か、codebaseに既にあるか、標準libraryやplatformが提供しているか、導入済み依存で解決できるか、調査のうえ成熟したlibraryが提供しているか、1行で書けるか）。そのうえで動作する最小限だけを書きます。projectとframeworkの慣習に従い、1つの仕事には1つのlibraryだけを使い、信頼境界でのvalidation、データ損失を防ぐerror処理、security、accessibility、編集前の問題理解は決して省略しません。
 
 pluginとしてinstallすると、[`hooks/hooks.json`](hooks/hooks.json)が`SessionStart`で中核skillを注入し、`SubagentStart`ですべてのsubagentにも注入します。強度level、切り替え、状態fileはありません。意図的な簡略化には、上限とupgrade pathを記した`anti-overengineering:` commentを付けます。
 
