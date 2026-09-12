@@ -15,7 +15,7 @@
   "interface": {
     "displayName": "Coding Skills",
     "shortDescription": "Idiomatic Rust guidance and anti-overengineering rules",
-    "longDescription": "Write idiomatic Rust with routed design guidelines, and keep every change minimal: YAGNI, the standard library, native platform features, and the smallest correct implementation.",
+    "longDescription": "Write idiomatic Rust with routed design guidelines, and keep every change minimal: YAGNI, the standard library, native platform features, mature libraries over hand-rolled code, and the smallest correct implementation.",
     "developerName": "azishio",
     "category": "Productivity",
     "capabilities": ["Instructions", "Lifecycle hooks"],
